@@ -12,7 +12,7 @@ require('./layouts/main_navbar.php');
 
 		<div class="mb-3">
 			<label for="queryInput" class="form-label fw-bold">Query</label>
-			<textarea name="query" class="form-control" id="queryInput" rows="3" required><?= old('query') ?></textarea>
+			<textarea name="query" class="form-control" id="queryInput" rows="3" required style="font-size: 21px;"><?= old('query') ?></textarea>
 		</div>
 		<div class="d-flex justify-content-end">
 			<div class="form-check">
