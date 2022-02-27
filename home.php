@@ -32,6 +32,8 @@ require('./layouts/main_navbar.php');
 			<div class="mb-3">
 				<label for="formatInput" class="form-label fw-bold">Format Data</label>
 				<input name="format" class="form-control" id="formatInput" value="<?= old('format') ?>"></input>
+				<div id="emailHelp" class="form-text">String = <b>s</b>; Integer = <b>i</b>; Float/Double = <b>d</b>; Boolean = <b>b</b></div>
+  
 			</div>
 		</div>
 

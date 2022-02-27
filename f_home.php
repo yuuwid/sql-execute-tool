@@ -27,28 +27,35 @@ function query($data)
             $subData = strpos($query, '?');
             $param = "$keyParam$i";
             $query = substr_replace($query, $param, $subData, 1);
-        }       
+        }
     }
 
-    $query = $db->query($query, $params);
-    $execute = $db->execute(FETCH_MULTI);
+    if (inString($query, ['SELECT', 'INSERT', 'UPDATE', 'DELETE'])) {
+        $result = $db->query($query, $params);
+        $execute = $db->execute(FETCH_MULTI);
+        $error = $db->error();
+    } else {
+        $result = $db->alter($query);
+        $execute = $db->alter_execute();
+        $error = $db->error();
+    }
+
 
     $columns = [];
     $results = [];
-    $error = false;
 
-    if ($execute != null) {
-        $error = false;
-        $results = $execute->results();
+    if ($error === null) {
+        if (inString($query, ['SELECT', 'INSERT', 'UPDATE', 'DELETE'])) {
+            $error = false;
+            $results = $execute->results();
 
-        foreach ($results as $d) {
-            foreach ($d as $col => $val) {
-                $columns[] = $col;
+            foreach ($results as $d) {
+                foreach ($d as $col => $val) {
+                    $columns[] = $col;
+                }
+                break;
             }
-            break;
         }
-    } else {
-        $error = $query->error();
     }
 
     return [$results, $columns, $error];
@@ -56,9 +63,10 @@ function query($data)
 
 function resetDatabase()
 {
-    dummy();
+    global $db;
+    $dummy = new Dummy($db);
+    $dummy->dump();
 }
-
 
 
 if (isset($_POST['request'])) {
@@ -71,9 +79,10 @@ if (isset($_POST['request'])) {
 }
 
 
-if (isset($_POST['reset_db']))
-{
-    resetDatabase();
+if (isset($_POST['reset_db'])) {
+    $dummy = new Dummy($db);
+    $dummy->dump();
 
     header('Location: ./');
 }
+

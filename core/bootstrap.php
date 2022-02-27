@@ -13,5 +13,3 @@ foreach ($directories as $dir){
         }
     }
 }
-
-$db = new Database();

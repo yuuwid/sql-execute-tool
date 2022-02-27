@@ -41,7 +41,7 @@ class Database
 
     public function query($query, $params = [])
     {
-        $this->_error = [false, null];
+        $this->_error = null;
         $this->_results = [];
 
         $this->_stmt = $this->_pdo->prepare($query);
@@ -57,7 +57,7 @@ class Database
     {
         try {
             if (!$this->_stmt->execute()) {
-                $this->_error = [true, $this->_stmt->errorInfo()];
+                $this->_error = $this->_stmt->errorInfo();
             } else {
                 if ($fetchType == FETCH_SINGLE) {
                     $this->_results = $this->_stmt->fetch(PDO::FETCH_ASSOC);
@@ -113,14 +113,34 @@ class Database
     public function list_tables()
     {
         $sql = 'SHOW TABLES';
-        $query = $this->_pdo->query($sql);
-        return $query->fetchAll(PDO::FETCH_COLUMN);
+        return $this->alter($sql)->alter_execute();
     }
 
     
     public function alter($sql)
     {
-        $query = $this->_pdo->query($sql);
-        return $query->fetchAll(PDO::FETCH_COLUMN);
+        try {
+            $this->_results = $this->_pdo->query($sql);
+        } catch (PDOException $e){
+            $this->_results = null;
+            $this->_error = $e->getMessage();
+            return null;
+        }
+        return $this;
+    }
+
+    public function alter_execute()
+    {
+        if ($this->_results !== null){
+            try {
+                return $this->_results->fetchAll(PDO::FETCH_COLUMN);
+            } catch (PDOException $e){
+                $this->_error = $e->getMessage();
+                return null;
+            }
+        }
+        return $this;
     }
 }
+
+$db = new Database();
