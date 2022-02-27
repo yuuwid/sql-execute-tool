@@ -28,6 +28,7 @@ require('./layouts/main_navbar.php');
 			<div class="mb-3">
 				<label for="dataInput" class="form-label fw-bold">Data</label>
 				<textarea name="data" class="form-control" id="dataInput" rows="2"><?= old('data') ?></textarea>
+				<div id="emailHelp" class="form-text">Setiap data pisahkan dengan tanda koma (<b> , </b>)</div>
 			</div>
 			<div class="mb-3">
 				<label for="formatInput" class="form-label fw-bold">Format Data</label>
