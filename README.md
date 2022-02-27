@@ -1,28 +1,25 @@
 # SQL EXECUTE TOOL
 Sebuah Tool SQL Execute yang berjalan di halaman antar muka website lokal / server lokal guna untuk menjalankan syntax atau query-query SQL.
 
+### Update 27/02/2022
+1. Penyesuaian Konfigurasi Awal menjadi lebih mudah.
+1. Penyesuaian Dummy Database sudah tidak dilakukan secara fungsional tetapi telah dilakukan oleh class-class Factory.
+2. Penyesuaian Execute untuk Perintah `DDL` (*Data Definition Language*).
+3. Perbaikan *BUG* Error yang tidak muncul.
+4. Penambahan Tabel-Tabel baru kedalam database.
+5. Penyesuaian Isi Database untuk menjejalah lebih jauh menggunakan Perintah `DML` (*Data Manipulation Language*).
+
 ## Konfigurasi
-1. Lakukan konfigurasi database didalam file `core/Config/config.php`;
+1. Lakukan konfigurasi `PORT` database kalian didalam file `core/Config/config.php`;
     ```php
-    define('DB_HOST', 'localhost');
     define('DB_PORT', 3306);
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'sql_practice_tool');
     ```
+    secara default telah menggunakan `PORT: 3306` jadi boleh skip langkah ini.
 2. Buat Database pada server kalian dengan nama `sql_practice_tool`.
     ```sql
     CREATE DATABASE `sql_practice_tool`;
     ```
-3. Lakukan Import file `sql_practice_tool.sql` kedalam database kalian.
-4. Jalankan server dan mulai berlatih.
-
-## Update 27/02/2022
-1. Dummy Database sudah dilakukan oleh class-class Factory.
-2. Penyesuaian Execute untuk Perintah DDL (Data Definition Language).
-3. Perbaikan BUG Error yang tidak muncul.
-4. Penambahan Tabel-Tabel baru kedalam database.
-5. Penyesuaian Isi Database untuk menjejalah lebih jauh menggunakan Perintah DML (Data Manipulation Language).
+3. Lakukan Import file `sql_practice_tool.sql` kedalam database kalian. <b style="color: red">ATAU</b> masuk kedalam web aplikasi kalian, kemudian pada bagian `Database` klik tombol `Reset Database`.
 
 ## Fitur
 1. Menulis Syntax SQL dan menjalankannya.
